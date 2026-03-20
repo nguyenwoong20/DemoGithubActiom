@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Cá Nhân | WOÒNG HỒ TUẤN NGUYÊN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f3ea;
+            --card: #fffdfa;
+            --ink: #1d2a2b;
+            --muted: #4d6664;
+            --line: #d7d4cb;
+            --accent: #0f766e;
+            --accent-2: #f97316;
+            --shadow: 0 20px 45px rgba(17, 24, 39, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Be Vietnam Pro", sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 8% 10%, rgba(15, 118, 110, 0.18), transparent 28%),
+                radial-gradient(circle at 88% 6%, rgba(249, 115, 22, 0.17), transparent 32%),
+                linear-gradient(140deg, #f8f6f0 0%, #f2eee5 50%, #ece9df 100%);
+            min-height: 100vh;
+        }
+
+        .page {
+            width: min(1080px, 92vw);
+            margin: 36px auto 48px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 28px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: rise 700ms ease forwards;
+        }
+
+        .panel:nth-child(2) {
+            animation-delay: 120ms;
+        }
+
+        .panel:nth-child(3) {
+            animation-delay: 200ms;
+        }
+
+        .panel:nth-child(4) {
+            animation-delay: 280ms;
+        }
+
+        .hero {
+            padding: 34px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .hero-text {
+            display: grid;
+            gap: 8px;
+        }
+
+        .avatar-wrap {
+            justify-self: end;
+            width: 210px;
+            aspect-ratio: 1 / 1;
+            border-radius: 999px;
+            padding: 8px;
+            background: linear-gradient(145deg, rgba(15, 118, 110, 0.8), rgba(249, 115, 22, 0.8));
+            box-shadow: 0 16px 34px rgba(15, 118, 110, 0.28);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 999px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border: 4px solid #fff;
+            background: #d9d9d9;
+        }
+
+        .avatar-fallback {
+            object-fit: contain;
+            padding: 12px;
+            background: #f2f5f4;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 999px;
+            right: -70px;
+            bottom: -70px;
+            background: conic-gradient(from 180deg, rgba(15, 118, 110, 0.28), rgba(249, 115, 22, 0.12), rgba(15, 118, 110, 0.25));
+            filter: blur(2px);
+        }
+
+        .kicker {
+            margin: 0;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 10px 0 12px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            margin: 0;
+            max-width: 760px;
+            font-size: 1.06rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .facts {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chip {
+            border: 1px solid rgba(15, 118, 110, 0.3);
+            background: rgba(15, 118, 110, 0.08);
+            color: #0f4f49;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .chip a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .chip a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            font-size: 1.25rem;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .about p,
+        .skills li,
+        .project p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #2d3e3d;
+        }
+
+        .skills ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 11px;
+        }
+
+        .skills li {
+            padding: 12px 14px;
+            border-left: 4px solid var(--accent-2);
+            background: #fff9f2;
+            border-radius: 10px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .project {
+            border: 1px solid var(--line);
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .project h3 {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .meta {
+            font-size: 0.92rem;
+            color: #0f4f49;
+            font-weight: 600;
+        }
+
+        .status {
+            display: inline-block;
+            width: fit-content;
+            margin-top: 2px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(249, 115, 22, 0.14);
+            color: #9a3412;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 860px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .hero-text {
+                justify-items: center;
+            }
+
+            .avatar-wrap {
+                justify-self: center;
+                width: 180px;
+            }
+
+            .panel,
+            .hero {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+    <section class="panel hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="kicker">Hồ sơ cá nhân</p>
+                <h1>WOÒNG HỒ TUẤN NGUYÊN</h1>
+                <p class="subtitle">Sinh viên năm 4 - Chuyên ngành Công nghệ Phần mềm Đại học Công nghệ TP.HCM (HUTECH)</p>
+                <div class="facts">
+                    <span class="chip">Quê quán: Long Thành, Đồng Nai</span>
+                    <span class="chip">GitHub: <a href="https://github.com/nguyenwoong20" target="_blank" rel="noopener">github.com/nguyenwoong20</a></span>
+                </div>
+            </div>
+
+            <div class="avatar-wrap">
+                <img class="avatar avatar-fallback" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230f766e'/%3E%3Cstop offset='1' stop-color='%23f97316'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' rx='200' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='150' r='64' fill='white' fill-opacity='.88'/%3E%3Cpath d='M90 330c20-66 75-105 110-105s90 39 110 105' fill='white' fill-opacity='.88'/%3E%3C/svg%3E" alt="Ảnh đại diện WOÒNG HỒ TUẤN NGUYÊN" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section class="panel about">
+        <h2>Giới thiệu bản thân</h2>
+        <p>Tôi là một sinh viên đam mê công nghệ, thích tìm tòi và trải nghiệm các xu hướng mới trong lĩnh vực phát triển phần mềm và thiết bị số. Tôi thích việc áp dụng kiến thức lý thuyết vào các dự án cá nhân để tối ưu hóa quy trình và không ngừng nâng cao kỹ năng lập trình chuyên sâu qua từng trải nghiệm thực tế.</p>
+    </section>
+
+    <section class="panel skills">
+        <h2>Kỹ năng &amp; sở thích</h2>
+        <ul>
+            <li>Tập Gym, nghe nhạc và tìm tòi những công nghệ mới.</li>
+            <li>Thể thao: Theo dõi các giải bóng đá hàng đầu và các giải đấu Esports chuyên nghiệp.</li>
+            <li>Giải trí: Chơi game và thích xem phim hoạt hình Reguler Show.</li>
+        </ul>
+    </section>
+
+    <section class="panel">
+        <h2>Dự án cá nhân</h2>
+        <div class="projects-grid">
+            <article class="project">
+                <h3>Ứng dụng quản lý chi tiêu cá nhân</h3>
+                <p class="meta">Công nghệ: Flutter, SQLite.</p>
+                <p>Mô tả: Xây dựng ứng dụng di động hỗ trợ người dùng theo dõi và quản lý tài chính cá nhân một cách hiệu quả.</p>
+            </article>
+
+            <article class="project">
+                <h3>Ứng dụng xem tin tức</h3>
+                <p class="meta">Công nghệ: Flutter, .NET API, MongoDB, JWT Authentication.</p>
+                <p>Mô tả: Phát triển hệ thống xem tin tức với cơ chế xác thực bảo mật và đồng bộ dữ liệu qua API.</p>
+            </article>
+
+            <article class="project">
+                <h3>Game 2D đi cảnh qua màn</h3>
+                <p class="meta">Công nghệ: Unity Game 2D.</p>
+                <p>Mô tả: Thiết kế lối chơi và xây dựng logic cho trò chơi hành động 2D.</p>
+            </article>
+
+            <article class="project">
+                <h3>Website hỗ trợ xây dựng cấu hình máy tính &amp; kiểm tra độ tương thích</h3>
+                <p class="meta">Công nghệ: Java Spring Boot.</p>
+                <span class="status">Trạng thái: Đang phát triển</span>
+                <p>Mô tả: Hỗ trợ người dùng lựa chọn linh kiện và tự động kiểm tra tính tương thích của hệ thống.</p>
+            </article>
+        </div>
+    </section>
+</main>
+<script>
+    (function () {
+        var avatar = document.querySelector('.avatar');
+        if (!avatar) {
+            return;
+        }
+
+        var candidates = [
+            '../static/avatar2.png',
+            '../static/avatar2.jpg',
+            '../static/avatar2.jpeg',
+            '/src/main/resources/static/avatar2.png',
+            '/src/main/resources/static/avatar2.jpg',
+            '/src/main/resources/static/avatar2.jpeg',
+            '/avatar2.png',
+            '/avatar2.jpg',
+            '/avatar2.jpeg',
+            '/static/avatar2.png',
+            '/static/avatar2.jpg',
+            '/static/avatar2.jpeg',
+            '/images/avatar2.png',
+            '/images/avatar2.jpg',
+            '/images/avatar2.jpeg',
+            '/images/avatar.jpg',
+            '/images/avatar.jpeg',
+            '/images/avatar.png',
+            '../static/avatar.jpg',
+            '../static/avatar.jpeg',
+            '../static/avatar.png',
+            '/avatar.jpg',
+            '/avatar.jpeg',
+            '/avatar.png'
+        ];
+
+        function tryNext(index) {
+            if (index >= candidates.length) {
+                return;
+            }
+
+            var probe = new Image();
+            probe.onload = function () {
+                avatar.src = candidates[index];
+                avatar.classList.remove('avatar-fallback');
+            };
+            probe.onerror = function () {
+                tryNext(index + 1);
+            };
+            probe.src = candidates[index];
+        }
+
+        tryNext(0);
+    })();
+</script>
+</body>
+</html>
