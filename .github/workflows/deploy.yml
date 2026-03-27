@@ -28,5 +28,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |                            # Đặt tên và phiên bản cho Image
-            ${{ secrets.DOCKER_USERNAME }}/woonghotuannguyen/my-profile:latest
-            ${{ secrets.DOCKER_USERNAME }}/woonghotuannguyen/my-profile:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/woonghotuannguyen/bai-tap-spring-boot:latest
+            ${{ secrets.DOCKER_USERNAME }}/woonghotuannguyen/bai-tap-spring-boot:${{ github.sha }}
